@@ -1,29 +1,30 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
 import { Overlay, ModalDiv } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
 export class Modal extends Component {
-  // слухач для кнопок
+  // слушатель для клавиш
   componentDidMount() {
     window.addEventListener('keydown', this.handleClickEsc);
   }
-  // чистимо за собою після закриття модалки
+
+  // очищаем после себя при закрытии модального окна
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleClickEsc);
   }
 
   handleClickEsc = e => {
-    // перевірка клавіші Escape
+    // проверка на нажатие клавиши Esc
     if (e.code === 'Escape') {
       this.props.onClose();
     }
   };
 
-  // закриття модалки по кліку на бекдроп
+  // закрытие модального окна по клику на бекдроп
   handleClickBackdrop = e => {
-    // перевірка чи клік був на бекдроп
+    // проверка, был ли клик на бекдропе
     if (e.currentTarget === e.target) {
       this.props.onClose();
     }
@@ -39,3 +40,5 @@ export class Modal extends Component {
     );
   }
 }
+
+export default Modal;
